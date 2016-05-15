@@ -36,21 +36,24 @@ object Main {
   val htmlUnitBrowser = HtmlUnitBrowser()
   def main(args: Array[String]): Unit = {
     val doc = jsoupBrowser.parseString(dummy)
+    println("=== JsoupBrowser ===")
     println(doc >> text("title"))
     println(doc >> text("h1"))
     println(doc >> elementList("li"))
+    println((doc >> elementList("li")).map(_.text))
     println(doc >> attr("charset")("meta"))
     println(doc >?> attr("charset")("title"))
-    println(doc >> text("#aaa"))
+    println(doc >?> text("#aaa span"))
 
 
+    println("=== HtmlUnitBrowser ===")
     val doc2 = htmlUnitBrowser.parseString(dummy)
     println(doc2 >> text("title"))
     println(doc2 >> text("h1"))
     println(doc2 >> elementList("li"))
     println(doc2 >> attr("charset")("meta"))
     println(doc2 >?> attr("charset")("title"))
-    println(doc2 >> text("#aaa"))
+    println(doc2 >?> text("#aaa span"))
 
   }
 }
